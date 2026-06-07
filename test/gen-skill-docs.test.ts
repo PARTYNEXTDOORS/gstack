@@ -2238,20 +2238,20 @@ describe('setup script validation', () => {
   });
 
   test('Claude install uses link_claude_skill_dirs', () => {
-    // The Claude install section (section 4) should use the Claude function
+    // The Claude install section should use the Claude function.
     const claudeSection = setupContent.slice(
-      setupContent.indexOf('# 4. Install for Claude'),
-      setupContent.indexOf('# 5. Install for Codex')
+      setupContent.indexOf('# 5. Install for Claude'),
+      setupContent.indexOf('# 6. Install for Codex')
     );
     expect(claudeSection).toContain('link_claude_skill_dirs');
     expect(claudeSection).not.toContain('link_codex_skill_dirs');
   });
 
   test('Codex install uses link_codex_skill_dirs', () => {
-    // The Codex install section (section 5) should use the Codex function
+    // The Codex install section should use the Codex function.
     const codexSection = setupContent.slice(
-      setupContent.indexOf('# 5. Install for Codex'),
-      setupContent.indexOf('# 6. Create')
+      setupContent.indexOf('# 6. Install for Codex'),
+      setupContent.indexOf('# 7. Install for Kiro')
     );
     expect(codexSection).toContain('create_codex_runtime_root');
     expect(codexSection).toContain('link_codex_skill_dirs');
@@ -2337,18 +2337,19 @@ describe('setup script validation', () => {
     expect(fnBody).toContain('_link_or_copy "$gstack_dir/SKILL.md" "$target/SKILL.md"');
 
     const claudeSection = setupContent.slice(
-      setupContent.indexOf('# 4. Install for Claude'),
-      setupContent.indexOf('# 5. Install for Codex')
+      setupContent.indexOf('# 5. Install for Claude'),
+      setupContent.indexOf('# 6. Install for Codex')
     );
     expect(claudeSection).toContain('link_claude_root_skill_alias "$SOURCE_GSTACK_DIR" "$INSTALL_SKILLS_DIR"');
   });
 
-  test('setup supports --host auto|claude|codex|kiro|opencode', () => {
+  test('setup supports --host auto|cursor|claude|codex|kiro|opencode', () => {
     expect(setupContent).toContain('--host');
-    expect(setupContent).toContain('claude|codex|kiro|factory|opencode|auto');
+    expect(setupContent).toContain('cursor|claude|codex|kiro|factory|opencode|auto');
   });
 
-  test('auto mode detects claude, codex, kiro, and opencode binaries', () => {
+  test('auto mode detects cursor, claude, codex, kiro, and opencode binaries', () => {
+    expect(setupContent).toContain('command -v cursor');
     expect(setupContent).toContain('command -v claude');
     expect(setupContent).toContain('command -v codex');
     expect(setupContent).toContain('command -v kiro-cli');
@@ -2383,6 +2384,13 @@ describe('setup script validation', () => {
     expect(setupContent).toContain('INSTALL_OPENCODE=');
     expect(setupContent).toContain('OPENCODE_SKILLS="$HOME/.config/opencode/skills"');
     expect(setupContent).toContain('OPENCODE_GSTACK="$OPENCODE_SKILLS/gstack"');
+  });
+
+  test('setup supports --host cursor with Cursor skill path vars', () => {
+    expect(setupContent).toContain('INSTALL_CURSOR=');
+    expect(setupContent).toContain('CURSOR_SKILLS="$HOME/.cursor/skills"');
+    expect(setupContent).toContain('CURSOR_GSTACK="$CURSOR_SKILLS/gstack"');
+    expect(setupContent).toContain('link_cursor_skill_dirs');
   });
 
   test('setup installs OpenCode skills into a nested gstack runtime root', () => {

@@ -6,7 +6,7 @@ designer, QA lead, release engineer, debugger, and more.
 
 ## Available skills
 
-Skills live in `.agents/skills/` (or `~/.claude/skills/gstack/` on Claude Code).
+Skills live in `~/.cursor/skills/` for Cursor, `.agents/skills/` for Codex-style agents, or `~/.claude/skills/gstack/` on Claude Code.
 Invoke them by name (e.g., `/office-hours`).
 
 ### Plan-mode reviews
@@ -65,7 +65,7 @@ Invoke them by name (e.g., `/office-hours`).
 | `/benchmark-models` | Cross-model benchmark for skills (Claude, GPT, Gemini side-by-side). |
 | `/cso` | OWASP Top 10 + STRIDE security audit. |
 | `/setup-gbrain` | Set up gbrain for cross-machine session memory sync. |
-| `/sync-gbrain` | Keep gbrain current with this repo's code; refresh agent search guidance in CLAUDE.md. |
+| `/sync-gbrain` | Keep gbrain current with this repo's code; refresh agent search guidance in project instructions. |
 
 ### Browser + agent integration
 
